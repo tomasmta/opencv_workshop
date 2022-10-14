@@ -17,9 +17,15 @@ def transform_colors(img_path):
     cv_grayscale = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     cv.imshow("OpenCV Function", cv_grayscale)
     
-    B, G, R = cv.split(img)
-    avg_grayscale = (B+G+R)/3
-    cv.imshow("Average Weighted", cv_grayscale)
+    B, G, R = cv.split(img) # extracts image channels as uint8
+
+    # convert images to float before adding picel values
+    B = np.array(B, dtype = float)
+    G = np.array(G, dtype = float)
+    R = np.array(R, dtype = float)
+    average = np.array((B + G + R)/3, dtype = 'uint8') # convert back to uint8 to display img
+
+    cv.imshow("Average Weighted", average)
     cv.waitKey(0)
     cv.destroyAllWindows()
 
